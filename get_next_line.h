@@ -18,17 +18,10 @@
 # include <stdlib.h>
 # include <stdio.h>
 
-typedef struct s_inout_buff
-{
-	char	*s_ptr;
-	int		s_cnt;
-	char	*s_base;
-	char	s_flag;
-	char	s_file;
-	int		s_charbuf;
-	int		s_bufsiz;
-	char	*s_tmpfname;
-}	t_inout_buff;
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 1000
+
+#endif
 
 char	*get_next_line(int fd);
 

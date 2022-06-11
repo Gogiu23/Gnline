@@ -13,6 +13,20 @@
 
 char	*get_next_line(int fd)
 {
-	static char		*buffer;
-}
+	char	*buffer;
+	int		nbytes;
+	nbytes = 0;
+	printf("antes del read: %d\n", nbytes);
 
+	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!buffer)
+		return (0);
+	while (buffer[nbytes] <= '\0')
+	{
+		nbytes = read(fd, buffer, BUFFER_SIZE);
+		nbytes++;
+	}
+	printf("despues del read: %d\n", nbytes);
+	printf("despues del read en int: %s\n", buffer);
+	return (buffer);
+}

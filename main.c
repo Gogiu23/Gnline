@@ -1,19 +1,25 @@
 #include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+char	*get_next_line(int pf);
 
 int	main()
 {
-	FILE  *pf;	//Flujo
+	int  pf;	//Flujo
+
 	//Abrimos el fichero
 
-	pf = fopen("mifichero-t.txt", "wt"); //w = write; t = fichero de texto
+	pf = open("mifichero-t.txt", O_RDWR); //w = write; t = fichero de texto
 	//escribimos en el fichero
 
-	fprintf(pf, "Hola mundo!\n");
-	fprintf(pf, "%d * %d = %d\n", 9, 256, 9 * 256);
-	
+	dprintf(pf, "Hola mundo!\n");
+	dprintf(pf, "%d * %d = %d\n", 9, 256, 9 * 256);
+
+	printf("Lo que hay dentro de pf: %s\n", get_next_line(pf));
 	//cerramos el fichero
 	
-	fclose(pf);
+	close(pf);
 
 	return (0);
 }
