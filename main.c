@@ -11,18 +11,13 @@ int	main()
 	//Abrimos el fichero
 
 	i = 0;
-	pf = open("mifichero-t.txt", O_RDONLY); //w = write; t = fichero de texto
+	pf = open("fd1.txt", O_RDONLY); //w = write; t = fichero de texto
 	//escribimos en el fichero
 
 //	dprintf(pf, "Hola mundo!\n");
 //	dprintf(pf, "%d * %d = %d\n", 9, 256, 9 * 256);
 	//cerramos el fichero
-	while (i <= 2)
-	{		
-		printf("EL FD DEVUELTO DEL GET NEXT LINE: %s", get_next_line(pf));
-		printf("EL FD DEVUELTO DEL GET NEXT LINE: %s", get_next_line(pf));
-		i++;
-	}
+	printf("EL FD DEVUELTO DEL GET NEXT LINE: %s", get_next_line(pf));
 	printf("El valor de pf es: %d\n", pf);
 	close(pf);
 	return (0);
