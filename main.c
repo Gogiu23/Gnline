@@ -17,7 +17,11 @@ int	main()
 //	dprintf(pf, "Hola mundo!\n");
 //	dprintf(pf, "%d * %d = %d\n", 9, 256, 9 * 256);
 	//cerramos el fichero
-	printf("EL FD DEVUELTO DEL GET NEXT LINE: %s", get_next_line(pf));
+	printf("\nEL FD DEVUELTO DEL GET NEXT LINE: %s", get_next_line(pf));
+	printf("\n-------------------VOLVEMOS AL MAIN! HASTA LUEGO--------------------------------");
+	printf("\nEL FD DEVUELTO DEL GET NEXT LINE: %s", get_next_line(pf));
+	printf("\n-------------------VOLVEMOS AL MAIN! HASTA LUEGO--------------------------------");
+	printf("\nEL FD DEVUELTO DEL GET NEXT LINE: %s", get_next_line(pf));
 	printf("El valor de pf es: %d\n", pf);
 	close(pf);
 	return (0);

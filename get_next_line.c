@@ -10,6 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
+char	*new_ptr(char *ptr)
+{
+	char  *up_ptr;
+	printf("  VALOR DE PTR ANTES DE SUBSTR: %s", ptr);
+//	up_ptr = ft_substr(ptr, '\n', ft_strlen_next(ptr));
+	up_ptr = ft_strtrim(ft_strchr(ptr, '\n'), ptr);
+	return (up_ptr);
+}
 
 char	*get_line(char *ptr)
 {
@@ -17,20 +25,24 @@ char	*get_line(char *ptr)
 	int	  count;
 
 	count = 0;
-	while (ptr[count] && ptr[count] == '\n')
+	while (ptr[count] && ptr[count] != '\n')
 		count++;
 	line = (char *)malloc(sizeof(char) * count + 2);
 	if (!line)
 		return (NULL);
+	count = 0;
+	printf("  VALOR DE PTR ANTES DE COPIARSE A LINE: %s", ptr);
+	printf("\nENTRAMOS EN EL WHILE");
 	while (ptr[count] && ptr[count] != '\n')
 	{
 		line[count] = ptr[count];
 		count++;
 	}
-//	line = ft_strtrim(ptr, ft_strchr(ptr, '\n'));
-	printf("Valor de line: %s\n", line);
-	printf("Valor de ptr: %s\n", ptr);
-	printf("Valor de line: %s\n", line);
+	printf("\nVALOR DE COUNT (BASICAMENTE CUANTO HEMOS COPIADO): %d\n", count);
+	line[count] = '\n';
+	line[count + 1] = '\0';
+	printf("\nCOPIA HECHA, A VER QUE TENEMOS  -> Valor de line: %s", line);
+	printf("\nCOPIA HECHA A VER QUE TENEMOS  -> Valor de ptr: %s", ptr);
 	return (line);
 }
 
@@ -47,10 +59,10 @@ char	*get_next_line(int fd)
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
 		return (0);
-	
+	printf("\n-------------------ENTRAMOS EN EL WHILE---------------------\n");	
 	while (!ft_strchr(buffer, '\n') && nbytes != 0)
 	{
-		printf("Valor de buffer antes del read: %s\n", buffer);
+		printf("\nValor de buffer antes del read: %s\n", buffer);
 		printf("Valor de nbytes antes del read: %d\n", nbytes);
 		nbytes = read(fd, buffer, BUFFER_SIZE);
 		if (nbytes == -1)
@@ -58,13 +70,18 @@ char	*get_next_line(int fd)
 			free(buffer);
 			return (NULL);
 		}
-		buffer[nbytes] = '\0';
 		ptr = ft_strjoin(ptr, buffer);
 		i++;
-		printf("Contenido de ptr dentro del while: %s\n", ptr);
+		printf("Numero de Nbytes -> : %d\n", nbytes);
+		printf("Contenido de ptr dentro del while: %s", ptr);
 		printf("Vueltas dentro del while: %d\n", i);
 	}
+	printf("--------------------------NOS VAMOS A OTRA FUNCION-----------------\n");
 	free(buffer);
 	line = get_line(ptr);
+	printf("\n---------------NOS VAMOS A LA ULTIMA FUNCION SUBSTR-----------------\n");
+	ptr = new_ptr(ptr);
+	printf("VALOR DEVUELTO DE PTR: %s", ptr);
+	printf("\n--------------------------VAMOS A VER QUE HA DEVUELTO NUESTRA GET NEXT LINE---------------------\n");
 	return (line);
 }
