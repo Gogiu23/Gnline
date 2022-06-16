@@ -13,8 +13,11 @@
 char	*new_ptr(char *ptr)
 {
 	char  *up_ptr;
+	int	  pos;
+
+	pos = 0;
 	printf("  VALOR DE PTR ANTES DE SUBSTR: %s", ptr);
-//	up_ptr = ft_substr(ptr, '\n', ft_strlen_next(ptr));
+	//up_ptr = ft_substr(ptr, '\n', ft_strlen_next(ptr));
 	up_ptr = ft_strtrim(ft_strchr(ptr, '\n'), ptr);
 	return (up_ptr);
 }
@@ -25,9 +28,11 @@ char	*get_line(char *ptr)
 	int	  count;
 
 	count = 0;
+	if (!ptr[count])
+		return (NULL);
 	while (ptr[count] && ptr[count] != '\n')
 		count++;
-	line = (char *)malloc(sizeof(char) * count + 2);
+	line = (char *)malloc(sizeof(char) * count + 1);
 	if (!line)
 		return (NULL);
 	count = 0;
@@ -53,13 +58,14 @@ char	*get_next_line(int fd)
 	int				nbytes;
 	static char		*ptr;
 	int				i;
-
+	
+	printf("valor de PTR: %s", ptr);
 	i = 0;
 	nbytes = 1;
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
 		return (0);
-	printf("\n-------------------ENTRAMOS EN EL WHILE---------------------\n");	
+		printf("\n\033[1;32m-------------------ENTRAMOS EN EL WHILE---------------------\033[0m\n");
 	while (!ft_strchr(buffer, '\n') && nbytes != 0)
 	{
 		printf("\nValor de buffer antes del read: %s\n", buffer);
@@ -76,12 +82,12 @@ char	*get_next_line(int fd)
 		printf("Contenido de ptr dentro del while: %s", ptr);
 		printf("Vueltas dentro del while: %d\n", i);
 	}
-	printf("--------------------------NOS VAMOS A OTRA FUNCION-----------------\n");
+	printf("'\033[1;91m'--------------------------NOS VAMOS A OTRA FUNCION-----------------\033[0m\n");
 	free(buffer);
 	line = get_line(ptr);
-	printf("\n---------------NOS VAMOS A LA ULTIMA FUNCION SUBSTR-----------------\n");
+	printf("\033[1;34m\n---------------NOS VAMOS A LA ULTIMA FUNCION SUBSTR----------------\033[0m\n");
 	ptr = new_ptr(ptr);
 	printf("VALOR DEVUELTO DE PTR: %s", ptr);
-	printf("\n--------------------------VAMOS A VER QUE HA DEVUELTO NUESTRA GET NEXT LINE---------------------\n");
+	printf("\n\033[1;36m-------------------------VAMOS A VER QUE HA DEVUELTO NUESTRA GET NEXT LINE----------------------\033[0m\n");
 	return (line);
 }
