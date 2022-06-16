@@ -25,6 +25,7 @@ clean:
 
 fclean: clean
 	@rm -f make
+	@rm -f $(OBJS)
 	@echo limpiado el ejecutable
 
 re: fclean all
