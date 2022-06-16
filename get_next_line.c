@@ -17,8 +17,10 @@ char	*new_ptr(char *ptr)
 
 	pos = 0;
 	printf("  VALOR DE PTR ANTES DE SUBSTR: %s", ptr);
-	//up_ptr = ft_substr(ptr, '\n', ft_strlen_next(ptr));
-	up_ptr = ft_strtrim(ft_strchr(ptr, '\n'), ptr);
+	while (ptr[pos] != '\n')
+		pos++;
+	up_ptr = ft_substr(ptr, pos + 1, ft_strlen_next(ptr));
+//	up_ptr = ft_strtrim(ft_strchr(ptr, '\n'), ptr);
 	return (up_ptr);
 }
 
@@ -61,16 +63,22 @@ char	*get_next_line(int fd)
 	
 	printf("valor de PTR: %s", ptr);
 	i = 0;
-	nbytes = 1;
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
 		return (0);
-		printf("\n\033[1;32m-------------------ENTRAMOS EN EL WHILE---------------------\033[0m\n");
-	while (!ft_strchr(buffer, '\n') && nbytes != 0)
+	if (!ptr)
+	{
+		ptr = (char *)malloc(sizeof(char));
+		ptr[0] = '\0';
+	}
+	printf("\n\033[1;32m-------------------ENTRAMOS EN EL WHILE---------------------\033[0m\n");
+	while (!ft_strchr(ptr, '\n'))
 	{
 		printf("\nValor de buffer antes del read: %s\n", buffer);
 		printf("Valor de nbytes antes del read: %d\n", nbytes);
 		nbytes = read(fd, buffer, BUFFER_SIZE);
+		if (nbytes == 0)
+			break ;
 		if (nbytes == -1)
 		{
 			free(buffer);

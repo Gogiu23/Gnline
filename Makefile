@@ -1,15 +1,16 @@
 OBJS 			= get_next_line.c get_next_line_utils.c main.c
 
 CC 				= gcc
-CFLAGS 			= -Wall -Wextra -Werror -D BUFFER_SIZE=13
+CFLAGS 			:= -Wall -Wextra -Werror -D BUFFER_SIZE=75
 DEPS			= get_next_line.h
 RM	 			= rm -f
 
-%.o:	%.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+#%.o:	%.c $(DEPS)
+#	$(CC) -c -o $@ $< $(CFLAGS) -I$(DEPS)
+#	touch $@
 
-line:	$(OBJS)
-	$(CC) -o $@ $^ $(CFLAGS)
+line:	$(OBJS) $(DEPS)
+	$(CC) -o $@ $(OBJS) $(CFLAGS)
 
 make: 
 	./line
