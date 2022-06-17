@@ -68,21 +68,20 @@ char	*get_next_line(int fd)
 	static char		*ptr;
 	int				i;
 	
-	printf("valor de PTR: %s", ptr);
+	printf("valor de PTR: %s\n", ptr);
 	i = 0;
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
 		return (0);
-/*	if (!ptr)
+	if (!ptr)
 	{
+		printf("\033[1;31mVALOR DE PTR: %s\n\033[0m", ptr);
 		ptr = (char *)malloc(sizeof(char));
 		ptr[0] = '\0';
-	}*/
-	ptr[0] = '\0';
+	}
 	printf("\n\033[1;32m-------------------ENTRAMOS EN EL WHILE---------------------\033[0m\n");
 	while (!ft_strchr(ptr, '\n') && nbytes != 0)
 	{
-
 		printf("\nValor de buffer antes del read: %s\n", buffer);
 		printf("Valor de nbytes antes del read: %d\n", nbytes);
 		nbytes = read(fd, buffer, BUFFER_SIZE);
@@ -104,5 +103,7 @@ char	*get_next_line(int fd)
 	ptr = new_ptr(ptr);
 	printf("VALOR DEVUELTO DE PTR: %s", ptr);
 	printf("\n\033[1;36m-------------------------VAMOS A VER QUE HA DEVUELTO NUESTRA GET NEXT LINE----------------------\033[0m\n");
+	if (ptr == NULL)
+		free(ptr);
 	return (line);
 }
