@@ -63,20 +63,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (d);
 }
 
-char	*ft_strtrim(char *s1, char *set)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (ft_strchr(set, *s1) && *s1)
-		s1++;
-	i = ft_strlen_next((char *)s1);
-	while (ft_strchr(set, s1[i]) != 0 && i)
-		i--;
-	return (ft_substr((char *)s1, 0, i + 1));
-}
-
-char	*ft_substr(char const *s, unsigned int start, unsigned int len)
+char	*ft_substr(char *s, unsigned int start, unsigned int len)
 {
 	unsigned int		i;
 	unsigned int		j;
@@ -97,5 +84,6 @@ char	*ft_substr(char const *s, unsigned int start, unsigned int len)
 		i++;
 	}
 	str[j] = 0;
+	free(s);
 	return (str);
 }

@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
+#include <stddef.h>
+
 char	*new_ptr(char *ptr)
 {
 	char  *up_ptr;
@@ -21,6 +23,7 @@ char	*new_ptr(char *ptr)
 		pos++;
 	up_ptr = ft_substr(ptr, pos + 1, ft_strlen_next(ptr));
 //	up_ptr = ft_strtrim(ft_strchr(ptr, '\n'), ptr);
+//	free(ptr);
 	return (up_ptr);
 }
 
@@ -50,6 +53,7 @@ char	*get_line(char *ptr)
 	line[count + 1] = '\0';
 	printf("\nCOPIA HECHA, A VER QUE TENEMOS  -> Valor de line: %s", line);
 	printf("\nCOPIA HECHA A VER QUE TENEMOS  -> Valor de ptr: %s", ptr);
+	free(line);
 	return (line);
 }
 
@@ -89,6 +93,11 @@ char	*get_next_line(int fd)
 		printf("Numero de Nbytes -> : %d\n", nbytes);
 		printf("Contenido de ptr dentro del while: %s", ptr);
 		printf("Vueltas dentro del while: %d\n", i);
+	}
+	if (ptr == 0)
+	{
+		free(ptr);
+		return (NULL);
 	}
 	printf("'\033[1;91m'--------------------------NOS VAMOS A OTRA FUNCION-----------------\033[0m\n");
 	free(buffer);

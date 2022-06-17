@@ -7,10 +7,10 @@ rm -rf $TARGET
 mkdir $TARGET
 
 # Copy all header files
-find includes -type f -name "*.h" -exec cp -n {} $TARGET/ \;
+find . -type f -name "*.h" -exec cp -n {} $TARGET/ \;
 
 # Copy all source files
-find sources -type f -name "*.c" -exec cp -n {} $TARGET \;
+find . -type f -name "*.c" -exec cp -n {} $TARGET \;
 
 # Truncate first and seconde line of Makefile. Store it in file "tailed-makefile".
 tail -n +3 "./Makefile" > $TARGET"/tailed-makefile"
