@@ -35,7 +35,7 @@ gmk:
 	@find . -name '*.h' | sed 's/^/INCLUDES += /' > includes.mk
 
 export:
-	@./scripts/export.sh
+	@./scripts/export2.sh
 	@printf "$(BLUE)$(NAME): $(YELLOW)Get next line exported.\n$(RESET)"
 
 end:
