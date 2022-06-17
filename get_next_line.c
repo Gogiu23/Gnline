@@ -31,7 +31,9 @@ char	*get_line(char *ptr)
 {
 	char  *line;
 	int	  count;
-
+	char  *temp;
+	
+	temp = 0;
 	count = 0;
 	if (!ptr[count])
 		return (NULL);
@@ -53,8 +55,9 @@ char	*get_line(char *ptr)
 	line[count + 1] = '\0';
 	printf("\nCOPIA HECHA, A VER QUE TENEMOS  -> Valor de line: %s", line);
 	printf("\nCOPIA HECHA A VER QUE TENEMOS  -> Valor de ptr: %s", ptr);
+	temp = ft_strjoin(temp, line);
 	free(line);
-	return (line);
+	return (temp);
 }
 
 char	*get_next_line(int fd)
@@ -70,19 +73,19 @@ char	*get_next_line(int fd)
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
 		return (0);
-	if (!ptr)
+/*	if (!ptr)
 	{
 		ptr = (char *)malloc(sizeof(char));
 		ptr[0] = '\0';
-	}
+	}*/
+	ptr[0] = '\0';
 	printf("\n\033[1;32m-------------------ENTRAMOS EN EL WHILE---------------------\033[0m\n");
-	while (!ft_strchr(ptr, '\n'))
+	while (!ft_strchr(ptr, '\n') && nbytes != 0)
 	{
+
 		printf("\nValor de buffer antes del read: %s\n", buffer);
 		printf("Valor de nbytes antes del read: %d\n", nbytes);
 		nbytes = read(fd, buffer, BUFFER_SIZE);
-		if (nbytes == 0)
-			break ;
 		if (nbytes == -1)
 		{
 			free(buffer);
@@ -93,11 +96,6 @@ char	*get_next_line(int fd)
 		printf("Numero de Nbytes -> : %d\n", nbytes);
 		printf("Contenido de ptr dentro del while: %s", ptr);
 		printf("Vueltas dentro del while: %d\n", i);
-	}
-	if (ptr == 0)
-	{
-		free(ptr);
-		return (NULL);
 	}
 	printf("'\033[1;91m'--------------------------NOS VAMOS A OTRA FUNCION-----------------\033[0m\n");
 	free(buffer);
