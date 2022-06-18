@@ -25,6 +25,7 @@ char	*new_ptr(char *ptr)
 	printf("VALOR DE POS: %d\n", pos);
 	up_ptr = ft_substr(ptr, pos + 1, ft_strlen_next(ptr));
 //	free(ptr);
+	printf("\033[1;32mValore de puntero en new ptr %p, %p\033[0m\n", &ptr, &up_ptr);
 	return (up_ptr);
 }
 
@@ -58,6 +59,7 @@ char	*get_line(char *ptr)
 	printf("\nCOPIA HECHA A VER QUE TENEMOS  -> Valor de ptr: %s", ptr);
 //	temp = strdup(line);
 //	free(line);
+	printf("Valore de puntero en el get line %p, %p\n", &ptr, &line);
 	return (line);
 }
 
@@ -88,6 +90,7 @@ char	*ft_read_line(int fd, char *ptr)
 			return (NULL);
 		}
 		ptr = ft_strjoin(ptr, buffer);
+		printf("Valore de puntero %p, %p\n", &ptr, &buffer);
 		printf("Numero de Nbytes -> : %d\n", nbytes);
 		printf("Contenido de ptr dentro del while: %s\n", ptr);
 	}
@@ -111,6 +114,7 @@ char	*get_next_line(int fd)
 		free(ptr);
 		return (NULL);
 	}
+	printf("Valore de puntero %p\n", &ptr);
 	printf("valor de PTR: %s\n", ptr);
 	line = get_line(ptr);
 	printf("\033[1;34m\n---------------NOS VAMOS A LA ULTIMA FUNCION SUBSTR----------------\033[0m\n");
