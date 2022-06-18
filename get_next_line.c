@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 #include "get_next_line.h"
 #include <stddef.h>
+#include <string.h>
 
 char	*new_ptr(char *ptr)
 {
@@ -55,32 +56,28 @@ char	*get_line(char *ptr)
 	line[count + 1] = '\0';
 	printf("\nCOPIA HECHA, A VER QUE TENEMOS  -> Valor de line: %s", line);
 	printf("\nCOPIA HECHA A VER QUE TENEMOS  -> Valor de ptr: %s", ptr);
-//	temp = ft_strjoin(temp, line);
+//	temp = strdup(line);
 //	free(line);
 	return (line);
 }
 
-char	*get_next_line(int fd)
+char	*ft_read_line(int fd, char *ptr)
 {
-	char			*line;
-	char			*buffer;
-	int				nbytes;
-	static char		*ptr;
-	int				i;
-	
-	printf("valor de PTR: %s\n", ptr);
-	i = 0;
+	char	*buffer;
+	int		nbytes;
+
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
 		return (0);
 	if (!ptr)
 	{
 		printf("\033[1;31mVALOR DE PTR: %s\n\033[0m", ptr);
-		ptr = (char *)malloc(sizeof(char));
+		ptr = (char *)malloc(sizeof(char) + 1);
 		ptr[0] = '\0';
 	}
+	nbytes = 1;
 	printf("\n\033[1;32m-------------------ENTRAMOS EN EL WHILE---------------------\033[0m\n");
-	while (!ft_strchr(ptr, '\n') && nbytes != 0)
+	while (!(ft_strchr(ptr, '\n') && nbytes))
 	{
 		printf("\nValor de buffer antes del read: %s\n", buffer);
 		printf("Valor de nbytes antes del read: %d\n", nbytes);
@@ -91,19 +88,34 @@ char	*get_next_line(int fd)
 			return (NULL);
 		}
 		ptr = ft_strjoin(ptr, buffer);
-		i++;
 		printf("Numero de Nbytes -> : %d\n", nbytes);
 		printf("Contenido de ptr dentro del while: %s\n", ptr);
-		printf("Vueltas dentro del while: %d\n", i);
 	}
 	printf("'\033[1;91m'--------------------------NOS VAMOS A OTRA FUNCION-----------------\033[0m\n");
 	free(buffer);
+	if (!ptr)
+		free(ptr);
+	return (ptr);
+}
+
+char	*get_next_line(int fd)
+{
+	char			*line;
+	static char		*ptr;
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (0);
+	ptr = ft_read_line(fd, ptr);
+	if (ptr == 0)
+	{
+		free(ptr);
+		return (NULL);
+	}
+	printf("valor de PTR: %s\n", ptr);
 	line = get_line(ptr);
 	printf("\033[1;34m\n---------------NOS VAMOS A LA ULTIMA FUNCION SUBSTR----------------\033[0m\n");
 	ptr = new_ptr(ptr);
 	printf("VALOR DEVUELTO DE PTR: %s", ptr);
 	printf("\n\033[1;36m-------------------------VAMOS A VER QUE HA DEVUELTO NUESTRA GET NEXT LINE----------------------\033[0m\n");
-	if (ptr == (char *)'\n' || ptr == NULL)
-		free(ptr);	
 	return (line);
 }
