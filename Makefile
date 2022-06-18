@@ -5,7 +5,7 @@ INCLUDE_PATH	= ./includes
 OBJS 			= $(SOURCES:.c=.o) 
 
 CC 				= gcc
-CFLAGS 			:= -Wall -Wextra -Werror -D BUFFER_SIZE=75
+CFLAGS 			:= -Wall -Wextra -Werror -D BUFFER_SIZE=5
 DEPS			= get_next_line.h
 RM	 			= rm -f
 

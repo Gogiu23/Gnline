@@ -23,7 +23,7 @@ size_t	ft_strlen_next(char *s)
 	return (i);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(char *s, int c)
 {
 	while (*s != '\0')
 	{
@@ -68,12 +68,17 @@ char	*ft_substr(char *s, unsigned int start, unsigned int len)
 	unsigned int		i;
 	unsigned int		j;
 	char	*str;
-
+	
+	i = 0;
+	j = 0;
+	if (!s[i])
+	{
+		free(s);
+		return (NULL);
+	}
 	str = (char *)malloc(sizeof(*s) * (len + 1));
 	if (!str)
 		return (NULL);
-	i = 0;
-	j = 0;
 	while (s[i])
 	{
 		if (i >= start && j < len)

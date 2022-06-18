@@ -21,8 +21,8 @@ char	*new_ptr(char *ptr)
 	printf("  VALOR DE PTR ANTES DE SUBSTR: %s", ptr);
 	while (ptr[pos] != '\n')
 		pos++;
+	printf("VALOR DE POS: %d\n", pos);
 	up_ptr = ft_substr(ptr, pos + 1, ft_strlen_next(ptr));
-//	up_ptr = ft_strtrim(ft_strchr(ptr, '\n'), ptr);
 //	free(ptr);
 	return (up_ptr);
 }
@@ -55,9 +55,9 @@ char	*get_line(char *ptr)
 	line[count + 1] = '\0';
 	printf("\nCOPIA HECHA, A VER QUE TENEMOS  -> Valor de line: %s", line);
 	printf("\nCOPIA HECHA A VER QUE TENEMOS  -> Valor de ptr: %s", ptr);
-	temp = ft_strjoin(temp, line);
-	free(line);
-	return (temp);
+//	temp = ft_strjoin(temp, line);
+//	free(line);
+	return (line);
 }
 
 char	*get_next_line(int fd)
@@ -93,7 +93,7 @@ char	*get_next_line(int fd)
 		ptr = ft_strjoin(ptr, buffer);
 		i++;
 		printf("Numero de Nbytes -> : %d\n", nbytes);
-		printf("Contenido de ptr dentro del while: %s", ptr);
+		printf("Contenido de ptr dentro del while: %s\n", ptr);
 		printf("Vueltas dentro del while: %d\n", i);
 	}
 	printf("'\033[1;91m'--------------------------NOS VAMOS A OTRA FUNCION-----------------\033[0m\n");
@@ -103,7 +103,7 @@ char	*get_next_line(int fd)
 	ptr = new_ptr(ptr);
 	printf("VALOR DEVUELTO DE PTR: %s", ptr);
 	printf("\n\033[1;36m-------------------------VAMOS A VER QUE HA DEVUELTO NUESTRA GET NEXT LINE----------------------\033[0m\n");
-	if (ptr == NULL)
-		free(ptr);
+	if (ptr == (char *)'\n' || ptr == NULL)
+		free(ptr);	
 	return (line);
 }
