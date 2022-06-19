@@ -67,8 +67,8 @@ char	*ft_substr(char *s, unsigned int start, unsigned int len)
 {
 	unsigned int		i;
 	unsigned int		j;
-	char	*str;
-	
+	char				*str;
+
 	i = 0;
 	j = 0;
 	if (!s[i])
@@ -82,13 +82,10 @@ char	*ft_substr(char *s, unsigned int start, unsigned int len)
 	while (s[i])
 	{
 		if (i >= start && j < len)
-		{
-			str[j] = s[i];
-			j++;
-		}
+			str[j++] = s[i];
 		i++;
 	}
-	str[j] = 0;
+	str[j] = '\0';
 	free(s);
 	return (str);
 }
