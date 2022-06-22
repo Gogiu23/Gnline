@@ -68,6 +68,7 @@ char	*ft_read_line(int fd, char *ptr)
 			free(buffer);
 			return (NULL);
 		}
+		buffer[nbytes] = '\0';
 		ptr = ft_strjoin(ptr, buffer);
 	}
 	free(buffer);
@@ -109,7 +110,7 @@ int	main(void)
 		final_line = get_next_line(pf);
 		printf("\n\033[0;36m La primera linia: %02d, %s\033[0m\n", i, final_line);
 		i++;
-		//free(final_line);
+		free(final_line);
 	}
 	close(pf);
 	return (0);
