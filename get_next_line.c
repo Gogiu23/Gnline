@@ -17,9 +17,17 @@ char	*new_ptr(char *ptr)
 	int		pos;
 
 	pos = 0;
-	while (ptr[pos] != '\n')
+	printf("valor de ptr: %s\n", ptr);
+	while (ptr[pos] && ptr[pos] != '\n')
 		pos++;
+	if (!ptr[pos])
+	{
+		free(ptr);
+		return (NULL);
+	}
 	up_ptr = ft_substr(ptr, pos + 1, ft_strlen_next(ptr));
+	printf("valor de ptr: %s\n", ptr);
+	printf("valor de up_ptr: %s\n", up_ptr);
 	return (up_ptr);
 }
 
@@ -33,7 +41,7 @@ char	*get_line(char *ptr)
 		return (NULL);
 	while (ptr[count] && ptr[count] != '\n')
 		count++;
-	line = (char *)malloc(sizeof(char) * count + 2);
+	line = (char *)malloc(sizeof(char) * count + 1);
 	if (!line)
 		return (NULL);
 	count = 0;
@@ -52,12 +60,12 @@ char	*ft_read_line(int fd, char *ptr)
 	char	*buffer;
 	int		nbytes;
 
-	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	buffer =(char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
 		return (0);
 	if (!ptr)
 	{
-		ptr = (char *)malloc(sizeof(char) + 1);
+		ptr = (char *)malloc(sizeof(char) * 1);
 		ptr[0] = '\0';
 	}
 	while (!ft_strchr(ptr, '\n') && nbytes != 0)
