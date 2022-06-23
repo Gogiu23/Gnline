@@ -51,10 +51,10 @@ char	*ft_strjoin(char *ptr, char *buffer)
 	if (!ptr)
 	{
 		ptr = (char *)malloc(sizeof(char) * 1);
+		if (!ptr)
+			return (NULL);
 		ptr[0] = '\0';
 	}
-	if (!ptr || !buffer)
-		return (NULL);
 	dest = ft_strlen_next(ptr) + ft_strlen_next(buffer);
 	i = -1;
 	j = 0;
