@@ -90,7 +90,7 @@ char	*get_next_line(int fd)
 	ptr = new_ptr(ptr);
 	return (line);
 }
-/*
+
 #include <stdio.h>
 #include <fcntl.h>
 
@@ -117,4 +117,4 @@ int	main(void)
 	}
 	close(pf);
 	return (0);
-}*/
+}
