@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "get_next_line.h"
 
-size_t	ft_strlen_next(char *s)
+size_t	ft_strlen_n(char *s)
 {
 	size_t	i;
 
@@ -23,19 +23,17 @@ size_t	ft_strlen_next(char *s)
 	return (i);
 }
 
-char	*ft_strchr(char *s, int c)
+char	*ft_strchr(char *ptr, int n)
 {
 	int		i;
 
 	i = 0;
-	if (!s[i])
+	if (!ptr)
 		return (0);
-	if (c == '\0')
-		return ((char *)&s[ft_strlen_next(s)]);
-	while (s[i] != '\0')
+	while (ptr[i] != '\0')
 	{
-		if (s[i] == (char)c)
-			return ((char *)s);
+		if (ptr[i] == (char)n)
+			return (&ptr[i]);
 		i++;
 	}
 	return (0);
@@ -43,10 +41,9 @@ char	*ft_strchr(char *s, int c)
 
 char	*ft_strjoin(char *ptr, char *buffer)
 {
-	char	*newstr;
+	char	*str;
 	size_t	j;
 	size_t	i;
-	size_t	dest;
 
 	if (!ptr)
 	{
@@ -55,20 +52,19 @@ char	*ft_strjoin(char *ptr, char *buffer)
 			return (NULL);
 		ptr[0] = '\0';
 	}
-	dest = ft_strlen_next(ptr) + ft_strlen_next(buffer);
 	i = -1;
 	j = 0;
-	newstr = (char *)malloc((dest + 1) * sizeof(char));
-	if (!newstr)
+	str = malloc(sizeof(char) * (ft_strlen_n(ptr) + ft_strlen_n(buffer) + 1));
+	if (!str)
 		return (NULL);
 	if (ptr)
 		while (ptr[++i] != '\0')
-			newstr[i] = ptr[i];
+			str[i] = ptr[i];
 	while (buffer[j] != '\0')
-		newstr[i++] = buffer[j++];
-	newstr[ft_strlen_next(ptr) + ft_strlen_next(buffer)] = '\0';
+		str[i++] = buffer[j++];
+	str[ft_strlen_n(ptr) + ft_strlen_n(buffer)] = '\0';
 	free(ptr);
-	return (newstr);
+	return (str);
 }
 
 char	*ft_substr(char *s, unsigned int start, unsigned int len)
@@ -79,7 +75,7 @@ char	*ft_substr(char *s, unsigned int start, unsigned int len)
 
 	i = 0;
 	j = 0;
-	if (!s[i])
+	if (!s)
 	{
 		free(s);
 		return (NULL);

@@ -24,7 +24,7 @@ char	*new_ptr(char *ptr)
 		free(ptr);
 		return (NULL);
 	}
-	up_ptr = ft_substr(ptr, pos + 1, ft_strlen_next(ptr));
+	up_ptr = ft_substr(ptr, pos + 1, ft_strlen_n(ptr));
 	return (up_ptr);
 }
 
@@ -57,14 +57,9 @@ char	*ft_read_line(int fd, char *ptr)
 	char	*buffer;
 	int		nbytes;
 
-	buffer =(char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
 		return (0);
-	if (!ptr)
-	{
-		ptr = (char *)malloc(sizeof(char) * 1);
-		ptr[0] = '\0';
-	}
 	nbytes = 1;
 	while (!ft_strchr(ptr, '\n') && nbytes != 0)
 	{
@@ -92,15 +87,10 @@ char	*get_next_line(int fd)
 	if (!ptr)
 		return (NULL);
 	line = get_line(ptr);
-	if (!line)
-	{
-		free(ptr);
-		return (NULL);
-	}
 	ptr = new_ptr(ptr);
 	return (line);
 }
-
+/*
 #include <stdio.h>
 #include <fcntl.h>
 
@@ -112,7 +102,7 @@ int	main(void)
 	//Abrimos el fichero
 
 	i = 1;
-	pf = open("fd1.txt", O_RDONLY); //w = write; t = fichero de texto
+	pf = open("41_no_nl", O_RDONLY); //w = write; t = fichero de texto
 	//escribimos en el fichero
 
 	//	dprintf(pf, "Hola mundo!\n");
@@ -127,4 +117,4 @@ int	main(void)
 	}
 	close(pf);
 	return (0);
-}
+}*/
