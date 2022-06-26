@@ -5,10 +5,17 @@
 #  define BUFFER_SIZE 1000
 #endif
 
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <stdio.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdlib.h>
 
 char	*get_next_line_bonus(int fd);
+char	*ft_strchr(char *ptr, int n);
+size_t	ft2_strlen(char *str);
+char	*ft_strjoin(char *ptr, char *buffer);
+char	*ft_substr(char *s, unsigned int start, unsigned int len);
 
 #endif

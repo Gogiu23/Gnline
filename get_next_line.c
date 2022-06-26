@@ -59,7 +59,7 @@ char	*ft_read_line(int fd, char *ptr)
 
 	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
-		return (0);
+		return (NULL);
 	nbytes = 1;
 	while (!ft_strchr(ptr, '\n') && nbytes != 0)
 	{
