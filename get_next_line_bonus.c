@@ -1,5 +1,29 @@
 #include "get_next_line_bonus.h"
 
+char
+
+char	*ft_getlines(char *ptr)
+{
+	char	*line;
+	int		n;
+
+	n = 0;
+	while (ptr[n] && ptr[n] == '\n')
+		n++;
+	line = (char *)malloc(n * sizeof(char) + 2);
+	if (!line)
+		return (NULL);
+	n = 0;
+	while (ptr[n] && ptr[n] == '\n')
+	{
+		line[n] = ptr[n];
+		n++;
+	}
+	line[n] = '\n';
+	line[n + 1] = '\0';
+	return (line);
+}
+
 char	*ft_read_line(char *ptr, int fd)
 {
 	char	*buffer;
@@ -29,12 +53,17 @@ char	*ft_read_line(char *ptr, int fd)
 
 char	*get_next_line_bonus(int fd)
 {
+	char			*line;
 	static char		*ptr;
 
 	ptr = (char *)malloc(1027 * sizeof(char));
 	if (!ptr)
 		return (NULL);
 	ptr = ft_read_line(ptr, fd);
+	if (!ptr)
+		return (NULL);
+	line = ft_getlines(ptr);
+	ptr = ft_newptr(ptr);
 	return (ptr);
 }
 
