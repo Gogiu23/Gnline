@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gdominic <gdominic@student.42barcelona.co  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/05 16:36:36 by gdominic          #+#    #+#             */
+/*   Updated: 2022/07/05 22:55:21 by gdominic         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1000
-#endif
+# endif
 
 # include <sys/types.h>
 # include <sys/uio.h>
@@ -12,7 +23,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-char	*get_next_line_bonus(int fd);
+char	*get_next_line(int fd);
 char	*ft_strchr(char *ptr, int n);
 size_t	ft2_strlen(char *str);
 char	*ft_strjoin(char *ptr, char *buffer);

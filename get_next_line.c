@@ -6,7 +6,7 @@
 /*   By: gdominic <gdominic@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:33:46 by gdominic          #+#    #+#             */
-/*   Updated: 2022/06/12 14:53:04 by gdominic         ###   ########.fr       */
+/*   Updated: 2022/07/05 22:46:39 by gdominic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -24,7 +24,7 @@ char	*new_ptr(char *ptr)
 		free(ptr);
 		return (NULL);
 	}
-	up_ptr = ft_substr(ptr, pos + 1, ft_strlen_n(ptr));
+	up_ptr = ft_substr(ptr, pos + 1, ft_strlen_n(ptr) + 1);
 	return (up_ptr);
 }
 
@@ -36,7 +36,7 @@ char	*get_line(char *ptr)
 	count = 0;
 	if (!ptr[count])
 		return (NULL);
-	while (ptr[count] && ptr[count] != '\n')
+	while (ptr[count] != '\n' && ptr[count])
 		count++;
 	line = (char *)malloc(sizeof(char) * count + 2);
 	if (!line)
@@ -47,8 +47,12 @@ char	*get_line(char *ptr)
 		line[count] = ptr[count];
 		count++;
 	}
-	line[count] = '\n';
-	line[count + 1] = '\0';
+	if (ptr[count] == '\n')
+	{
+		line[count] = '\n';
+		count++;
+	}
+	line[count] = '\0';
 	return (line);
 }
 
@@ -88,9 +92,11 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = get_line(ptr);
 	ptr = new_ptr(ptr);
+	if (!line || !line[0])
+		return (0);
 	return (line);
 }
-
+/*
 #include <stdio.h>
 #include <fcntl.h>
 
@@ -98,23 +104,21 @@ int	main(void)
 {
 	char  *final_line;
 	int  pf;	//Flujo
-	int	  i;
 	//Abrimos el fichero
 
-	i = 1;
-	pf = open("41_no_nl", O_RDONLY); //w = write; t = fichero de texto
+	pf = open("files/42_no_nl", O_RDONLY); //w = write; t = fichero de texto
 	//escribimos en el fichero
 
 	//	dprintf(pf, "Hola mundo!\n");
 	//	dprintf(pf, "%d * %d = %d\n", 9, 256, 9 * 256);
 	//cerramos el fichero
-	while (i <= 9)
+	final_line = get_next_line(pf);
+	while (final_line)
 	{	
-		final_line = get_next_line(pf);
-		printf("\n\033[0;36m La primera linia: %02d, %s\033[0m\n", i, final_line);
-		i++;
+		printf("La linia: %s", final_line);
 		free(final_line);
+		final_line = get_next_line(pf);
 	}
 	close(pf);
 	return (0);
-}
+}*/

@@ -1,6 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gdominic <gdominic@student.42barcelona.co  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/05 16:35:52 by gdominic          #+#    #+#             */
+/*   Updated: 2022/07/05 23:15:04 by gdominic         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "get_next_line_bonus.h"
 
-char
+char	*ft_newptr(char *ptr)
+{
+	char	*upg_ptr;
+	int		count;
+
+	count = 0;
+	while (ptr[count] && ptr[count] != '\n')
+		count++;
+	if (!ptr[count])
+	{
+		free(ptr);
+		return (NULL);
+	}
+	upg_ptr = ft_substr(ptr, count + 1, ft2_strlen(ptr));
+	return (upg_ptr);
+}
 
 char	*ft_getlines(char *ptr)
 {
@@ -8,19 +34,28 @@ char	*ft_getlines(char *ptr)
 	int		n;
 
 	n = 0;
-	while (ptr[n] && ptr[n] == '\n')
+	while (ptr[n] && ptr[n] != '\n')
 		n++;
 	line = (char *)malloc(n * sizeof(char) + 2);
 	if (!line)
 		return (NULL);
 	n = 0;
-	while (ptr[n] && ptr[n] == '\n')
+	while (ptr[n] && ptr[n] != '\n')
 	{
 		line[n] = ptr[n];
 		n++;
 	}
-	line[n] = '\n';
-	line[n + 1] = '\0';
+	if (ptr[n] == '\n')
+	{
+		line[n] = '\n';
+		n++;
+	}
+	line[n] = '\0';
+	if (line[0] == '\0')
+	{
+		free(line);
+		return (NULL);
+	}
 	return (line);
 }
 
@@ -41,32 +76,41 @@ char	*ft_read_line(char *ptr, int fd)
 			free(buffer);
 			return (NULL);
 		}
-		printf("valor de nbytes: %d\n", nbytes);
-		printf("contenido de buffer despues del read: %s\n", buffer);
 		buffer[nbytes] = '\0';
 		ptr = ft_strjoin(ptr, buffer);
 	}
 	free(buffer);
-	printf("Valor de ptr despues de join: %s\n", ptr);
 	return (ptr);
 }
 
-char	*get_next_line_bonus(int fd)
+char	*get_next_line(int fd)
 {
 	char			*line;
-	static char		*ptr;
+	static char		*ptr[1027];
 
-	ptr = (char *)malloc(1027 * sizeof(char));
-	if (!ptr)
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (0);
+	if (!ptr[fd])
+	{
+		ptr[fd] = (char *)malloc(sizeof(char));
+		ptr[fd][0] = '\0';
+	}
+	if (!ptr[fd])
 		return (NULL);
-	ptr = ft_read_line(ptr, fd);
-	if (!ptr)
+	ptr[fd] = ft_read_line(ptr[fd], fd);
+	if (!ptr[fd])
 		return (NULL);
-	line = ft_getlines(ptr);
-	ptr = ft_newptr(ptr);
-	return (ptr);
+	line = ft_getlines(ptr[fd]);
+	if (!line || line[0] == '\0')
+	{
+		if (ptr[fd])
+			free(ptr[fd]);
+		return (0);
+	}
+	ptr[fd] = ft_newptr(ptr[fd]);
+	return (line);
 }
-
+/*
 int main()
 {
 	int		fd;
@@ -76,14 +120,20 @@ int main()
 	char	*line2;
 	char	*line3;
 
-	fd = open("bonus.txt", O_CREAT | O_RDWR | O_RDONLY);
+	fd = open("bonus.txt", O_RDONLY);
 //	dprintf(fd, "Hola\n\n\nMe llamo Giuli");
-	fd2 = open("bonus2.txt", O_CREAT | O_RDWR | O_RDONLY);
+	fd2 = open("bonus2.txt", O_RDONLY);
 //	dprintf(fd2, "Adios\n");
-	fd3 = open("bonus3.txt", O_CREAT | O_RDWR | O_RDONLY);
-//	dprintf(fd3, "C'era una volta un giovane intreprendente\nche voleva a tutti i costi diventare principe di Idalgo");
+	fd3 = open("bonus3.txt", O_RDONLY);
 	line = get_next_line_bonus(fd);
-	printf("\033[1;33mla primera linia devuelta del primer fichero: \033[0m%s\n", line);
+	free(line);
+	line2 = get_next_line_bonus(fd2);
+	printf("\033[1;32mPrimera linia del segundo fichero: \033[0m%s\n", line2);
+	free(line2);
+	line3 = get_next_line_bonus(fd3);
+	printf("\033[1;31mla primera lina del tercer fichero: \033[0m%s\n", line3);
+	free(line3);
+	line = get_next_line_bonus(fd);
 	free(line);
 	line2 = get_next_line_bonus(fd2);
 	printf("\033[1;32mPrimera linia del segundo fichero: \033[0m%s\n", line2);
@@ -95,5 +145,4 @@ int main()
 	close(fd2);
 	close(fd3);
 	return (0);
-}
-
+}*/

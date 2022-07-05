@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gdominic <gdominic@student.42barcelona.co  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/05 16:36:54 by gdominic          #+#    #+#             */
+/*   Updated: 2022/07/05 22:49:31 by gdominic         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "get_next_line_bonus.h"
 
 char	*ft_strchr(char *ptr, int n)
@@ -82,4 +93,3 @@ char	*ft_substr(char *s, unsigned int start, unsigned int len)
 	free(s);
 	return (str);
 }
-
