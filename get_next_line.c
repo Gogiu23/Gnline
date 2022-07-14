@@ -60,6 +60,8 @@ char	*ft_read_line(int fd, char *ptr)
 {
 	char	*buffer;
 	int		nbytes;
+	size_t	i;
+	size_t	j;
 
 	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
@@ -67,6 +69,8 @@ char	*ft_read_line(int fd, char *ptr)
 	nbytes = 1;
 	while (!ft_strchr(ptr, '\n') && nbytes != 0)
 	{
+		i = -1;
+		j = 0;
 		nbytes = read(fd, buffer, BUFFER_SIZE);
 		if (nbytes == -1)
 		{
@@ -74,7 +78,7 @@ char	*ft_read_line(int fd, char *ptr)
 			return (NULL);
 		}
 		buffer[nbytes] = '\0';
-		ptr = ft_strjoin(ptr, buffer);
+		ptr = ft_strjoin(ptr, buffer, j, i);
 	}
 	free(buffer);
 	return (ptr);

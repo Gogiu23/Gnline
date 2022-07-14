@@ -25,7 +25,7 @@
 size_t	ft_strlen_n(char *s);
 char	*get_next_line(int fd);
 char	*ft_strchr(char *ptr, int n);
-char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strjoin(char *s1, char *s2, size_t i, size_t j);
 char	*ft_substr(char *s, unsigned int start, unsigned int len);
 
 #endif

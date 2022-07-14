@@ -6,7 +6,7 @@
 /*   By: gdominic <gdominic@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 16:36:54 by gdominic          #+#    #+#             */
-/*   Updated: 2022/07/05 22:49:31 by gdominic         ###   ########.fr       */
+/*   Updated: 2022/07/06 20:14:20 by gdominic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line_bonus.h"
@@ -80,7 +80,7 @@ char	*ft_substr(char *s, unsigned int start, unsigned int len)
 		free(s);
 		return (NULL);
 	}
-	str = (char *)malloc(sizeof(*s) * (len + 1));
+	str = (char *)malloc(sizeof(*s) * (len));
 	if (!str)
 		return (NULL);
 	while (s[i])

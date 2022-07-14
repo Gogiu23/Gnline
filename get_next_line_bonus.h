@@ -6,7 +6,7 @@
 /*   By: gdominic <gdominic@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 16:36:36 by gdominic          #+#    #+#             */
-/*   Updated: 2022/07/05 22:55:21 by gdominic         ###   ########.fr       */
+/*   Updated: 2022/07/06 20:10:41 by gdominic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef GET_NEXT_LINE_BONUS_H
@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <limits.h>
 
 char	*get_next_line(int fd);
 char	*ft_strchr(char *ptr, int n);

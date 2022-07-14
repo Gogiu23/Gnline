@@ -6,7 +6,7 @@
 /*   By: gdominic <gdominic@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 16:35:52 by gdominic          #+#    #+#             */
-/*   Updated: 2022/07/05 23:15:04 by gdominic         ###   ########.fr       */
+/*   Updated: 2022/07/06 20:11:56 by gdominic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line_bonus.h"
@@ -34,6 +34,8 @@ char	*ft_getlines(char *ptr)
 	int		n;
 
 	n = 0;
+	if (!ptr[n])
+		return (NULL);
 	while (ptr[n] && ptr[n] != '\n')
 		n++;
 	line = (char *)malloc(n * sizeof(char) + 2);
@@ -51,11 +53,6 @@ char	*ft_getlines(char *ptr)
 		n++;
 	}
 	line[n] = '\0';
-	if (line[0] == '\0')
-	{
-		free(line);
-		return (NULL);
-	}
 	return (line);
 }
 
@@ -74,6 +71,7 @@ char	*ft_read_line(char *ptr, int fd)
 		if (nbytes == -1)
 		{
 			free(buffer);
+			free(ptr);
 			return (NULL);
 		}
 		buffer[nbytes] = '\0';
@@ -86,27 +84,14 @@ char	*ft_read_line(char *ptr, int fd)
 char	*get_next_line(int fd)
 {
 	char			*line;
-	static char		*ptr[1027];
+	static char		*ptr[OPEN_MAX];
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	if (!ptr[fd])
-	{
-		ptr[fd] = (char *)malloc(sizeof(char));
-		ptr[fd][0] = '\0';
-	}
-	if (!ptr[fd])
-		return (NULL);
 	ptr[fd] = ft_read_line(ptr[fd], fd);
 	if (!ptr[fd])
 		return (NULL);
 	line = ft_getlines(ptr[fd]);
-	if (!line || line[0] == '\0')
-	{
-		if (ptr[fd])
-			free(ptr[fd]);
-		return (0);
-	}
 	ptr[fd] = ft_newptr(ptr[fd]);
 	return (line);
 }
